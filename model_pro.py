@@ -1,18 +1,6 @@
 import numpy as np
 import pandas as pd
 
-class River: #Optional class to input river coordinates
-    def __init__(self, x1, y1, x2, y2):
-        self.m = (y2-y1)/(x2-x1)
-        self.theta = np.where(np.arctan(self.m)> 0, np.pi - np.arctan(self.m), -np.pi - np.arctan(self.m))
-    
-    def rot_matrix(self):
-        t = self.theta
-        return(np.array([np.cos(t), -np.sin(t)], [np.sin(t), np.cos(t)]))
-
-    def operator(self,x,y):
-        return None
-
 class Model: #Model class to calculate discharge potential, head and stream function
     def __init__(self, k, H, h0, Qo_x, river = None, x_ref = 0, y_ref = 0):
         self.k = k
