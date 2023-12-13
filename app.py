@@ -1,6 +1,6 @@
 import streamlit as st
 from multiapp import MultiApp
-import home, result, help_page, data_col, new_help # import your app modules here
+import home, result, data_col # import your app modules here
 
 
 
@@ -17,8 +17,6 @@ app.add_app("Home", home.app)
 #app.add_app("Theory", theory.app)
 app.add_app("Data Collection", data_col.app)
 app.add_app("Results", result.app)
-app.add_app("Parameter Esitimation", help_page.app)
-app.add_app("Help Page",new_help.app)
 
 
 
