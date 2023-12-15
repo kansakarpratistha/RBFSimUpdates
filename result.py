@@ -38,18 +38,19 @@ def app():
                         for i in range(j):
                             well = model_pro.Well(aem_model, Q=results[i][1], rw=0.2, x=results[i][2], y=results[i][3])
             
-                st.write('')
-                st.write('')
-                display_3d_plot = st.checkbox(":blue[Display 3D Plot]")
+                c1, c2= st.columns(2)
 
-                # Check if the checkbox is checked
-                if display_3d_plot:
-                    # Assuming `aem_model` is defined somewhere in your code
+                # ------------------------------------------------------------------Stream / Potential Lines for Multiple Wells-----------------------------    
+                with c1:
+                    if len(results)>(1):
+                        st.subheader(":blue[Wells in Flow Field:]")
+                    else:
+                        st.subheader(":blue[Well in Flow Field:]")
                     plot1 = plotting(0, 100, -20, 150, 100)
-                    b2, fig2 = plot1.plot3d(aem_model)
-                    st.pyplot(fig2)
-                st.divider()
-                
+                    b, fig1 = plot1.plot2d(aem_model, levels=8, sharey=False, quiver=False, streams=True, figsize=(18, 12))
+                    st.pyplot(fig1)                        
+                    
+                                    
                 # ------------------------------------------------------------------------------Download Files----------------------------------------------------------------------------------------
                 plot3 = plotting(0, 100, -20, 150, 100)
 
