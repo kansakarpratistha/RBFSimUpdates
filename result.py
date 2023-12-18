@@ -105,20 +105,22 @@ def app():
                     if len(results) > 1:
                         st.sidebar.markdown("---")
                         st.sidebar.info("After entering one well, The options will be available here.")
-                    else:
-                        solv = contrib.river_length(aem_model)
-                        
-                        length, riv_coords, capture_fraction = solv.solve_river_length()
-                        tt, ys, avgtt, mintt, traj_array = solv.time_travel(results_aq[0][3], delta_s=0.4, calculate_trajectory=True)
-                        # st.write(riv_coords)   ########### Changed here to modify capture length 
-                        ############### Removing Negative Values 
-                        riv_coords = [max(0., x) for x in riv_coords]
-                        length=sum(riv_coords)
-                        
+                    else:                      
                         #st.sidebar.markdown("---")
                         st.sidebar.title(":red[Contribution Portion:]")
                         if st.sidebar.checkbox("Bank Filtrate Portion"):
                             st.subheader(":blue[Bank Filterate Portion:]")
+                            #---moved the following block of code from the line before st.sidebar.title(":red[Contribution Portion]")
+                            solv = contrib.river_length(aem_model)
+                        
+                            length, riv_coords, capture_fraction = solv.solve_river_length()
+                            tt, ys, avgtt, mintt, traj_array = solv.time_travel(results_aq[0][3], delta_s=0.4, calculate_trajectory=True)
+                            # st.write(riv_coords)   #Changed here to modify capture length 
+                            #---Removing Negative Values--- 
+                            riv_coords = [max(0., x) for x in riv_coords]
+                            length=sum(riv_coords)
+                            #modified code block ends---
+
                             plot = plotting(0, 100, -20, 150, 100, riv_coords)
                             b, fig = plot.plot2d(aem_model, sharey=False, traj_array=traj_array, levels=8, quiver=False, streams=True)
                             st.pyplot(fig)
